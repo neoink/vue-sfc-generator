@@ -1,9 +1,9 @@
 {
-  "name": "vue-sfc-rollup",
+  "name": "@neoink/vue-sfc-rollup",
   "description": "Quickly generate redistributable components with Rollup",
-  "author": "Michael Dodge",
+  "author": "Michael Dodge (forked by Laurent Goutagny)",
   "license": "ISC",
-  "version": "0.3.1",
+  "version": "0.1.0",
   "bin": {
     "sfc-rollup-init": "./sfc-init.js"
   },

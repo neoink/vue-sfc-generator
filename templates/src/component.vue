@@ -1,15 +1,3 @@
-<script>
-export default {
-    name: '{{componentNamePascal}}', // vue component name
-    data() {
-        return {
-            counter: 5,
-            initCounter: 5,
-        };
-    },
-}
-</script>
-
 <template>
     <div class="{{componentName}}">
         <p>The counter is set to <b>{{counter}}</b>.</p>
@@ -19,7 +7,19 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<script>
+export default {
+  name: '{{componentNamePascal}}', // vue component name
+  data() {
+    return {
+      counter: 5,
+      initCounter: 5
+    };
+  }
+};
+</script>
+
+<style lang="postcss" modules>
     .{{componentName}} {
         display: block;
         width: 400px;

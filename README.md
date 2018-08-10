@@ -3,17 +3,17 @@
 vue-sfc-rollup exists to provide the minimal setup necessary to compile a Vue Single File Component (SFC) into a form ready to share via npm.
 
 ## TL;DR
+
 ```bash
-npm install -g vue-sfc-rollup
+npm install -g vue-sfc-rollup (or yarn add)
 sfc-rollup-init
 # fill in prompts
 cd my-component
 vue serve ./src/my-component.vue # Or other live-refresh coding
 # Do dev stuff...
-npm run build
+npm run build (or yarn build)
 # Ready to publish!
 ```
-
 
 ## Details
 
@@ -34,15 +34,17 @@ Now, whenever you want to start a new component, you can just type `sfc-rollup-i
 ### Using the vue-sfc-rollup wizard
 
 Using the vue-sfc-rollup wizard is simple:
+
 ```bash
 sfc-rollup-init
 # fill in prompts
 ```
+
 The wizard will prompt for the following:
 
-  - *npm name*: This is how people will find your component in npm. Please refer to [the official npm docs](https://docs.npmjs.com/files/package.json#name) for details of what to enter here
-  - *component name*: This is the kebab-case version of your SFC component name - what your component's tag would be if you were to use this in an HTML page or another component. Since any kebab-case tag name would also be a safe file name, this will also be the name of the generated files.
-  - *save path*: Where do you want to save this component? By default, the wizard will use your current directory and create a new folder with the same kebab-case name as your component (eg. ./my-component/).
+- _npm name_: This is how people will find your component in npm. Please refer to [the official npm docs](https://docs.npmjs.com/files/package.json#name) for details of what to enter here
+- _component name_: This is the kebab-case version of your SFC component name - what your component's tag would be if you were to use this in an HTML page or another component. Since any kebab-case tag name would also be a safe file name, this will also be the name of the generated files.
+- _save path_: Where do you want to save this component? By default, the wizard will use your current directory and create a new folder with the same kebab-case name as your component (eg. ./my-component/).
 
 After prompting you for this information, the wizard then creates copies of the files found in the `templates` directory and performs the forementioned {{ variables }} replacement using the information enterd.
 
