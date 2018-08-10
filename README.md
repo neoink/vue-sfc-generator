@@ -9,7 +9,7 @@ vue-sfc-rollup exists to provide the minimal setup necessary to compile a Vue Si
 ## TL;DR
 
 ```bash
-npm install -g vue-sfc-rollup (or yarn add)
+npm install -g @neoink/vue-sfc-rollup (or yarn add)
 sfc-rollup-init
 # fill in prompts
 cd my-component
@@ -30,7 +30,7 @@ If you wish to integrate this into an existing SFC, please check out [the vue-sf
 To install [vue-sfc-rollup](https://www.npmjs.com/package/vue-sfc-rollup), simply open a terminal and execute the following:
 
 ```bash
-npm install -g vue-sfc-rollup
+npm install -g @neoink/vue-sfc-rollup
 ```
 
 Now, whenever you want to start a new component, you can just type `sfc-rollup-init` to run the wizard to scaffold a new SFC for you!
