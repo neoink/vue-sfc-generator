@@ -1,3 +1,7 @@
+# Fork
+
+This fork of [vue-sfc-rollup](https://www.npmjs.com/package/vue-sfc-rollup) use [babel](https://github.com/babel/babel) instead [buble](https://github.com/Rich-Harris/buble) for javascript compilation.
+
 # vue-sfc-rollup
 
 vue-sfc-rollup exists to provide the minimal setup necessary to compile a Vue Single File Component (SFC) into a form ready to share via npm.
