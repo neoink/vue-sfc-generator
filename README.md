@@ -1,6 +1,6 @@
 # Fork
 
-This fork of [vue-sfc-rollup](https://www.npmjs.com/package/vue-sfc-rollup) use [babel](https://github.com/babel/babel) instead [buble](https://github.com/Rich-Harris/buble) for javascript compilation.
+This fork of [vue-sfc-rollup](https://www.npmjs.com/package/vue-sfc-rollup) use [babel](https://github.com/babel/babel) instead [buble](https://github.com/Rich-Harris/buble) for javascript compilation. You can develop your SFC with vue-cli-service.
 
 # vue-sfc-rollup
 
@@ -9,13 +9,13 @@ vue-sfc-rollup exists to provide the minimal setup necessary to compile a Vue Si
 ## TL;DR
 
 ```bash
-npm install -g @neoink/vue-sfc-rollup (or yarn add)
+yarn global add @neoink/vue-sfc-rollup (or npm)
 sfc-rollup-init
 # fill in prompts
 cd my-component
-vue serve ./src/my-component.vue # Or other live-refresh coding
+yarn serve # Or other live-refresh coding
 # Do dev stuff...
-npm run build (or yarn build)
+yarn build (or npm)
 # Ready to publish!
 ```
 
@@ -30,7 +30,7 @@ If you wish to integrate this into an existing SFC, please check out [the vue-sf
 To install [vue-sfc-rollup](https://www.npmjs.com/package/vue-sfc-rollup), simply open a terminal and execute the following:
 
 ```bash
-npm install -g @neoink/vue-sfc-rollup
+yarn global add @neoink/vue-sfc-rollup (or npm)
 ```
 
 Now, whenever you want to start a new component, you can just type `sfc-rollup-init` to run the wizard to scaffold a new SFC for you!
@@ -54,13 +54,13 @@ After prompting you for this information, the wizard then creates copies of the 
 
 ### Developing your SFC
 
-vue-sfc-rollup is currently focused on packaging your SFC for distribution via npm. The Vue cli is excellent for the actual development process of your SFC, and it is recommended you use the official tooling.
+vue-sfc-rollup is currently focused on packaging your SFC for distribution via npm. The development process of your SFC use vue-cli-service.
 
 With v3 of the Vue cli installed globally, you can truly develop your SFC with zero conf just by entering the following commands:
 
 ```bash
 cd ./my-component
-vue serve ./src/my-component.vue
+yarn serve
 ```
 
 This will start up a webpack dev server with hot reloading and all the other awesomeness!
@@ -71,7 +71,7 @@ Once your development is done, it's time to package your component to publish to
 
 ```bash
 cd ./my-component
-npm run build
+yarn build (or npm)
 # rollup does its thing...done!
 ```
 

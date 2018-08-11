@@ -9,7 +9,7 @@ const argv = minimist(process.argv.slice(2));
 const config = {
   input: 'src/index.js',
   output: {
-    name: 'VueTest',
+    name: '{{componentNamePascal}}',
     exports: 'named'
   },
   plugins: [

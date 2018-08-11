@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<style lang="postcss" modules>
+<style lang="postcss" scoped>
     .{{componentName}} {
         display: block;
         width: 400px;
