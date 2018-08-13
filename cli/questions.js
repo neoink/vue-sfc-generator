@@ -19,10 +19,10 @@ module.exports = [
   },
   {
     type: 'input',
-    name: 'savePath',
+    name: 'componentPath',
     message: 'Enter a location to save the component files : ',
     default: val => {
-      return join(process.cwd(), val.componentName);
+      return `./${val.componentName}`;
     }
   }
 ];

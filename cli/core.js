@@ -1,15 +1,25 @@
 const fs = require('fs');
 const { join } = require('path');
 const handlebars = require('handlebars');
+const { ensureDirectoryExists } = require('./helpers');
+
+handlebars.registerHelper('raw-helper', options => options.fn());
 
 module.exports = (() => {
-  const writeFile = (file, data) =>
+  const writeFile = (file, data) => {
+    const currentPath = `${data.componentPath}/${file.replace(
+      'templates/',
+      ''
+    )}`;
+
     fs.readFile(file, 'utf-8', function(error, source) {
       const template = handlebars.compile(source);
       const newTemplate = template(data);
 
-      fs.writeFileSync(`./dist/${file}`, newTemplate);
+      ensureDirectoryExists(currentPath);
+      fs.writeFileSync(currentPath, newTemplate);
     });
+  };
 
   const generateTemplate = (directory, data) => {
     const filesOrDirectory = fs.readdirSync(directory); // Foreach directories/files
@@ -23,7 +33,7 @@ module.exports = (() => {
       if (isDirectory) {
         // If directory => recurcise
         currentDirectory += '/' + filesOrDirectory[i];
-        generateTemplate(`${currentDirectory}`);
+        generateTemplate(`${currentDirectory}`, data);
       } else {
         // else remplace var with Handlebars and write directories/files
         writeFile(`${directory}/${filesOrDirectory[i]}`, data);

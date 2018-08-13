@@ -1,6 +1,8 @@
 <template>
     <div class="{{componentName}}">
+        {{{{raw-helper}}}}
         <p>The counter is set to <b>{{counter}}</b>.</p>
+        {{{{/raw-helper}}}}
         <button @click="counter += 1">Click +1</button>
         <button @click="counter -= 1">Click -1</button>
         <button @click="counter = initCounter">Reset</button>

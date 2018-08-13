@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 module.exports = (() => {
   // Helpers for creating kebab-case/PascalCase versions of string
   const pascalify = str => {
@@ -11,8 +14,19 @@ module.exports = (() => {
       .replace(/\s+/g, '-')
       .toLowerCase();
 
+  // Helper to ensure directory exists before writing file to it
+  const ensureDirectoryExists = filePath => {
+    const dirname = path.dirname(filePath);
+    if (fs.existsSync(dirname)) {
+      return true;
+    }
+    ensureDirectoryExists(dirname);
+    fs.mkdirSync(dirname);
+  };
+
   return {
     pascalify,
-    kebabcase
+    kebabcase,
+    ensureDirectoryExists
   };
 })();
