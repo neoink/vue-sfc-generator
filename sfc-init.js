@@ -68,8 +68,25 @@ const newFiles = {
   package: '',
   rollupConfig: '',
   indexjs: '',
+  wrapper: '',
   component: ''
 };
+
+const directoryPath = path.join(__dirname, 'templates');
+
+fs.readdir(directoryPath, function(err, items) {
+  for (var i = 0; i < items.length; i++) {
+    var file = directoryPath + '/' + items[i];
+    console.log('Start: ' + file);
+    console.log(ensureDirectoryExists(file));
+
+    fs.stat(file, function(err, stats) {
+      console.log(file);
+      console.log(stats['size']);
+    });
+  }
+});
+
 newFiles.package = replaceVars(
   fs.readFileSync(path.join(__dirname, 'templates', 'package.json')).toString(),
   vars
@@ -127,6 +144,6 @@ console.log(
     '.vue as a ' +
     'starting point for your SFC.' +
     '\n' +
-    "When you're ready, run `npm run build` to generate the redistributable versions." +
+    "When you're ready, run `yarn build` to generate the redistributable versions." +
     '\n\n'
 );

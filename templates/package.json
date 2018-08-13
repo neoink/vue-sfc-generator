@@ -10,9 +10,10 @@
   },
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "npm run build:unpkg & npm run build:es & npm run build:umd",
+    "build": "yarn build:unpkg & yarn build:es & yarn build:umd & yarn build:cjs",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/{{componentName}}.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/{{componentName}}.esm.js",
+    "build:cjs": "rollup --config build/rollup.config.js --format cjs --file dist/{{componentName}}.common.js",
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/{{componentName}}.min.js"
   },
   "dependencies": {},
