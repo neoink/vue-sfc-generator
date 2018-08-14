@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 // Vendor dependencies
 const fs = require('fs');
 const { join } = require('path');
