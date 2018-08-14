@@ -2,47 +2,66 @@ const fs = require('fs');
 const { join } = require('path');
 const handlebars = require('handlebars');
 const { ensureDirectoryExists } = require('./helpers');
+const { promisify } = require('util');
 
+// Promisify fs functions
+const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
+const readDir = promisify(fs.readdir);
+const lstat = promisify(fs.lstat);
+
+// Handlebars Helpers
 handlebars.registerHelper('raw-helper', options => options.fn());
 
-module.exports = (() => {
-  const writeFile = (file, data) => {
-    const currentPath = `${data.componentPath}/${file.replace(
-      'templates/',
-      ''
-    )}`;
+const core = {};
 
-    fs.readFile(file, 'utf-8', function(error, source) {
-      const template = handlebars.compile(source);
-      const newTemplate = template(data);
+const createFile = async (file, data) => {
+  let currentPath = `${data.componentPath}/${file.replace('templates/', '')}`;
+  const source = await readFile(file, 'utf-8');
 
-      ensureDirectoryExists(currentPath);
-      fs.writeFileSync(currentPath, newTemplate);
-    });
-  };
+  // Handlebars generate template
+  const template = handlebars.compile(source);
+  const newTemplate = template(data);
 
-  const generateTemplate = (directory, data) => {
-    const filesOrDirectory = fs.readdirSync(directory); // Foreach directories/files
+  // Replace component name
+  if (~file.indexOf('component.vue')) {
+    currentPath = currentPath.replace(
+      'component.vue',
+      `${data.componentName}.vue`
+    );
+  }
+
+  ensureDirectoryExists(currentPath);
+  await writeFile(currentPath, newTemplate);
+
+  return currentPath;
+};
+
+core.generateTemplate = (directory, data) => {
+  return new Promise(async resolve => {
+    const filesOrDirectory = await readDir(directory); // Foreach directories/files
     let currentDirectory = directory;
 
     for (let i = 0, len = filesOrDirectory.length; i < len; i += 1) {
       // Verify if current value is directory
-      const isDirectory = fs
-        .lstatSync(join(`${__dirname}/../${directory}/${filesOrDirectory[i]}`))
-        .isDirectory();
+      const stats = await lstat(
+        join(`${__dirname}/../${directory}/${filesOrDirectory[i]}`)
+      );
+      const isDirectory = stats.isDirectory();
+
       if (isDirectory) {
         // If directory => recurcise
         currentDirectory += '/' + filesOrDirectory[i];
-        generateTemplate(`${currentDirectory}`, data);
+        await core.generateTemplate(`${currentDirectory}`, data);
       } else {
         // else remplace var with Handlebars and write directories/files
-        writeFile(`${directory}/${filesOrDirectory[i]}`, data);
+        await createFile(`${directory}/${filesOrDirectory[i]}`, data);
         currentDirectory = directory;
       }
     }
-  };
 
-  return {
-    generateTemplate
-  };
-})();
+    resolve(true);
+  });
+};
+
+module.exports = core;

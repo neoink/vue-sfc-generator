@@ -1,9 +1,9 @@
 {
-  "name": "@neoink/vue-sfc-rollup",
+  "name": "vue-sfc-generator",
   "description": "Quickly generate redistributable components with Rollup",
-  "author": "Michael Dodge (forked by Laurent Goutagny)",
+  "author": "Laurent Goutagny",
   "license": "ISC",
-  "version": "0.1.4",
+  "version": "0.1.0",
   "bin": {
     "sfc-cli": "./sfc-cli.js"
   },
@@ -11,7 +11,8 @@
     "chalk": "^2.4.1",
     "figlet": "^1.2.0",
     "handlebars": "^4.0.11",
-    "inquirer": "^6.1.0"
+    "inquirer": "^6.1.0",
+    "ora": "^3.0.0"
   },
   "keywords": [
     "vue",

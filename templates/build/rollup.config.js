@@ -15,7 +15,8 @@ const config = {
   plugins: [
     vue({
       css: true,
-      compileTemplate: true
+      compileTemplate: true,
+      template: { optimizeSSR: true }
     }),
     babel({
       exclude: 'node_modules/**'

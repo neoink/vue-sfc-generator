@@ -1,4 +1,3 @@
-const { join } = require('path');
 const { kebabcase } = require('./helpers');
 
 module.exports = [
