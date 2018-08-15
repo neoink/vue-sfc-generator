@@ -19,7 +19,7 @@ const createFile = async (file, from, to, data) => {
   let currentPath = join(data.savePath, file);
 
   if (typeof to !== 'undefined') {
-    currentPath = join(data.savePath, to, file).replace('templates', '');
+    currentPath = join(data.savePath, to, file);
   }
 
   const source = await readFile(join(from, file), 'utf-8');
