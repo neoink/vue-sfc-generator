@@ -10,7 +10,7 @@ vue-sfc-rollup exists to provide the minimal setup necessary to compile a Vue Si
 
 ```bash
 yarn global add @neoink/vue-sfc-rollup (or npm)
-sfc-init
+sfc-cli
 # fill in prompts
 cd my-component
 yarn serve # Or other live-refresh coding (use vue-cli-service)
@@ -33,14 +33,14 @@ To install [vue-sfc-rollup](https://www.npmjs.com/package/@neoink/vue-sfc-rollup
 yarn global add @neoink/vue-sfc-rollup (or npm)
 ```
 
-Now, whenever you want to start a new component, you can just type `sfc-rollup-init` to run the wizard to scaffold a new SFC for you!
+Now, whenever you want to start a new component, you can just type `sfc-cli` in your desired directory to run the wizard to scaffold a new SFC for you!
 
 ### Using the vue-sfc-rollup wizard
 
 Using the vue-sfc-rollup wizard is simple:
 
 ```bash
-sfc-init
+sfc-cli
 # fill in prompts
 ```
 
@@ -50,7 +50,7 @@ The wizard will prompt for the following:
 - _component name_: This is the kebab-case version of your SFC component name - what your component's tag would be if you were to use this in an HTML page or another component. Since any kebab-case tag name would also be a safe file name, this will also be the name of the generated files.
 - _save path_: Where do you want to save this component? By default, the wizard will use your current directory and create a new folder with the same kebab-case name as your component (eg. ./my-component/).
 
-After prompting you for this information, the wizard then creates copies of the files found in the `templates` directory and performs the forementioned {{ variables }} replacement using the information enterd.
+After prompting you for this information, the wizard then creates copies of the files found in the `templates` directory and performs the forementioned {{ variables }} replacement using the information enterd with [handlebars](https://github.com/wycats/handlebars.js/).
 
 ### Developing your SFC
 
