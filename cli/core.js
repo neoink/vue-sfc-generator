@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { join } = require('path');
+const { join, sep } = require('path');
 const handlebars = require('handlebars');
 const { ensureDirectoryExists } = require('./helpers');
 const { promisify } = require('util');
@@ -15,9 +15,14 @@ handlebars.registerHelper('raw-helper', options => options.fn());
 
 const core = {};
 
-const createFile = async (file, data) => {
-  let currentPath = `${data.componentPath}/${file.replace('templates/', '')}`;
-  const source = await readFile(file, 'utf-8');
+const createFile = async (file, from, to, data) => {
+  let currentPath = join(data.savePath, file);
+
+  if (typeof to !== 'undefined') {
+    currentPath = join(data.savePath, to, file).replace('templates', '');
+  }
+
+  const source = await readFile(join(from, file), 'utf-8');
 
   // Handlebars generate template
   const template = handlebars.compile(source);
@@ -31,36 +36,39 @@ const createFile = async (file, data) => {
     );
   }
 
-  ensureDirectoryExists(currentPath);
+  ensureDirectoryExists(currentPath, file);
   await writeFile(currentPath, newTemplate);
 
   return currentPath;
 };
 
-core.generateTemplate = (directory, data) => {
-  return new Promise(async resolve => {
-    const filesOrDirectory = await readDir(directory); // Foreach directories/files
-    let currentDirectory = directory;
+core.generateTemplate = (data, directory, to = undefined) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const filesOrDirectory = await readDir(directory); // Foreach directories/files
 
-    for (let i = 0, len = filesOrDirectory.length; i < len; i += 1) {
-      // Verify if current value is directory
-      const stats = await lstat(
-        join(`${__dirname}/../${directory}/${filesOrDirectory[i]}`)
-      );
-      const isDirectory = stats.isDirectory();
+      for (let i = 0, len = filesOrDirectory.length; i < len; i += 1) {
+        const currentItem = filesOrDirectory[i];
+        const currentPath = directory + sep + currentItem;
 
-      if (isDirectory) {
-        // If directory => recurcise
-        currentDirectory += '/' + filesOrDirectory[i];
-        await core.generateTemplate(`${currentDirectory}`, data);
-      } else {
-        // else remplace var with Handlebars and write directories/files
-        await createFile(`${directory}/${filesOrDirectory[i]}`, data);
-        currentDirectory = directory;
+        // Verify if current value is directory
+        const stats = await lstat(currentPath);
+        const isDirectory = stats.isDirectory();
+
+        if (isDirectory) {
+          // If directory => recurcise
+          let cacheDirectory = currentPath.split(`templates${sep}`)[1];
+          await core.generateTemplate(data, currentPath, cacheDirectory);
+        } else {
+          // else remplace var with Handlebars and write directories/files
+          await createFile(currentItem, directory, to, data);
+        }
       }
-    }
 
-    resolve(true);
+      resolve(true);
+    } catch (err) {
+      reject(err);
+    }
   });
 };
 
